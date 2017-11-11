@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             myLocationMarker.title("My location\n");
             myLocationMarker.snippet("GPS location\n");
             myLocationMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
-            map.addMarker(myLocationMarker);
+            map.addMarker(myLocationMarker); 
         } else{
             myLocationMarker.position(new LatLng(latitute,longtitude));
         }
