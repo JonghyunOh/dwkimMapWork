@@ -18,7 +18,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     SupportMapFragment mapFragment;
     GoogleMap map;
+    MarkerOptions myLocationMarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "GoogleMap is ready.");
 
                 map = googleMap;
+
             }
         });
 
@@ -150,5 +155,22 @@ public class MainActivity extends AppCompatActivity {
         LatLng curPoint = new LatLng(latitute,longtitude);
 
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 15));
+        showMyLocationMarker(latitute,longtitude);
     }
+
+    private void showMyLocationMarker(Double latitute, Double longtitude) {
+        if(myLocationMarker == null){
+            myLocationMarker = new MarkerOptions();
+            myLocationMarker.position(
+                    new LatLng(latitute,longtitude)
+            );
+            myLocationMarker.title("My location\n");
+            myLocationMarker.snippet("GPS location\n");
+            myLocationMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
+            map.addMarker(myLocationMarker);
+        } else{
+            myLocationMarker.position(new LatLng(latitute,longtitude));
+        }
+    }
+
 }
